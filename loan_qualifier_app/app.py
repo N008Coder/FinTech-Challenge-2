@@ -7,12 +7,13 @@ Example:
     $ python app.py
 """
 import sys
+from tracemalloc import stop
 import fire
 import questionary
 from pathlib import Path
 
 
-from qualifier.utils.fileio import load_csv, save_qualifying_loans
+from qualifier.utils.fileio import load_csv, save_csv
 
 from qualifier.utils.calculators import (
     calculate_monthly_debt_ratio,
@@ -106,7 +107,15 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
 
     return bank_data_filtered
 
-
+def save_qualifying_loans():
+    yn_save = questionary.confirm("Would you like to save the results in a CSV file?").ask()
+    if yn_save == False:
+        print("Thanks for using our software")
+        sys.exit()
+    else:
+        print("Your file has been saved")
+      
+            
 
 
 def run():
@@ -123,9 +132,12 @@ def run():
         bank_data, credit_score, debt, income, loan_amount, home_value
     )
 
+    # Decide whether or not to save
+    save_qualifying_loans()
+    
+    save_csv(qualifying_loans)
     # Save qualifying loans
-    save_qualifying_loans(qualifying_loans)
-
+ 
 
 if __name__ == "__main__":
     fire.Fire(run)

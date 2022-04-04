@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Helper functions to load ("load_csv") and save ("save_qualifying_loans") CSV data.
+"""Helper functions to load ("load_csv") and save ("save_csv") CSV data.
 
 This contains a helper function for loading and saving CSV files.
 
@@ -7,7 +7,7 @@ This contains a helper function for loading and saving CSV files.
 import csv
 from pathlib import Path
 
-def save_qualifying_loans(qualifying_loans):
+def save_csv(qualifying_loans):
     """Saves the qualifying loans to a CSV file.
 
     Args:
