@@ -1,18 +1,26 @@
 # Project Title
 
-Just after the title, introduce your project by describing attractively what the project is about and what is the main problem that inspires you to create this project or what is the main contribution for the potential user of your project.
+Loan Application Analyzer
+    Provides information on which loans you qualify for based on the requirements specified by the loan providers and the based on the user's inputs
 
 ---
 
 ## Technologies
 
-Describe the technologies required to use your project such as programming languages, libraries, frameworks, and operating systems. Be sure to include the specific versions of any critical dependencies that you have used in the stable version of your project.
+Python 3.7.11
+Fire 0.4.0
+Questionary 1.10.0
+
 
 ---
 
 ## Installation Guide
 
-In this section, you should include detailed installation notes containing code blocks and screenshots.
+Make sure you have the dependencies installed, which if you have Anaconda already, should just be Fire, Questionary, and CSV
+run the following code:
+pip install Questionary
+pip install Fire
+pip install CSV
 
 ---
 
