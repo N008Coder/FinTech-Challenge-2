@@ -7,7 +7,7 @@ This contains a helper function for loading and saving CSV files.
 import csv
 from pathlib import Path
 
-def save_csv(qualifying_loans):
+def save_csv(qualifying_loans,csvpath):
     """Saves the qualifying loans to a CSV file.
 
     Args:
@@ -18,7 +18,7 @@ def save_csv(qualifying_loans):
 # Set the output header
     header = ["Lender - Loan Level", "Max Loan Amount", "Max LTV", "Max DTI","Min Credit Score","Interest Rate"]
 
-    output_path = Path("qualifying_loans.csv")
+    output_path = Path(csvpath)
 
 
     with open(output_path, 'w', newline='') as csvfile:

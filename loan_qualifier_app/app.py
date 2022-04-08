@@ -11,7 +11,7 @@ from tracemalloc import stop
 import fire
 import questionary
 from pathlib import Path
-
+# Above we import the dependencies of this script from Modules that come with Anaconda
 
 from qualifier.utils.fileio import load_csv, save_csv
 
@@ -24,6 +24,8 @@ from qualifier.filters.max_loan_size import filter_max_loan_size
 from qualifier.filters.credit_score import filter_credit_score
 from qualifier.filters.debt_to_income import filter_debt_to_income
 from qualifier.filters.loan_to_value import filter_loan_to_value
+# Above we import the dependencies of this script from Modules that came in the starter file or in the case of
+# save_csv, was added in manually
 
 
 def load_bank_data():
@@ -32,11 +34,13 @@ def load_bank_data():
     Returns:
         The bank data from the data rate sheet CSV file.
     """
+    # This gives us the list of loans and their requirements that we check our application against
 
     csvpath = questionary.text("Enter a file path to a rate-sheet (.csv):").ask()
     csvpath = Path(csvpath)
     if not csvpath.exists():
         sys.exit(f"Oops! Can't find this path: {csvpath}")
+    # In the case of the filepath being incorrectly entered, the script will exit
 
     return load_csv(csvpath)
 
@@ -47,6 +51,9 @@ def get_applicant_info():
     Returns:
         Returns the applicant's financial information.
     """
+    # This function utilizes questionary as essentially a nicer UI version of the Input() function to gather
+    # the data on the applicant for the loan. Lastly, it ensures the saved responses are in the right data type 
+    # to be able to run a comparison on it against the loan's requirements
 
     credit_score = questionary.text("What's your credit score?").ask()
     debt = questionary.text("What's your current amount of monthly debt?").ask()
@@ -84,6 +91,8 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
         A list of the banks willing to underwrite the loan.
 
     """
+    # From the Calculator file in Utils, these functions are imported to perform some basic calculations on the 
+    # applicants inputs to get the ratios needed to compare to the banks' loan requirements
 
     # Calculate the monthly debt ratio
     monthly_debt_ratio = calculate_monthly_debt_ratio(debt, income)
@@ -99,7 +108,7 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
     bank_data_filtered = filter_debt_to_income(monthly_debt_ratio, bank_data_filtered)
     bank_data_filtered = filter_loan_to_value(loan_to_value_ratio, bank_data_filtered)
 
-    # Small modification for edge cases
+    # Small modification manually added to take care of edge cases:
     if len(bank_data_filtered) > 0:
         print(f"Found {len(bank_data_filtered)} qualifying loans")
     else:
@@ -107,13 +116,18 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
 
     return bank_data_filtered
 
-def save_qualifying_loans():
+def save_qualifying_loans(qualifying_loans):
     yn_save = questionary.confirm("Would you like to save the results in a CSV file?").ask()
     if yn_save == False:
         print("Thanks for using our software")
         sys.exit()
     else:
-        print("Your file has been saved")
+        csvpath = questionary.path("Perfect. Just input your absolute file path here (.csv):").ask()
+        csvpath = Path(csvpath)
+
+    return save_csv(qualifying_loans, csvpath)
+    # Saves qualifying loans based on the inputed file path after confirming if the user wants to save the list of
+    # loans that they qualify for
       
             
 
@@ -131,12 +145,9 @@ def run():
     qualifying_loans = find_qualifying_loans(
         bank_data, credit_score, debt, income, loan_amount, home_value
     )
-
-    # Decide whether or not to save
-    save_qualifying_loans()
+    # Decide whether or not to save and save based on a desired filepasth
+    save_qualifying_loans(qualifying_loans)
     
-    save_csv(qualifying_loans)
-    # Save qualifying loans
  
 
 if __name__ == "__main__":

@@ -24,7 +24,12 @@ This section should include screenshots, code blocks, or animations explaining h
 
 ## Contributors
 
-In this section, list all the people who contribute to this project. You might want recruiters or potential collaborators to reach you, so include your contact email and, optionally, your LinkedIn or Twitter profile.
+- Berkeley FinTech Extension Course for the starer code
+    https://bootcamp.berkeley.edu/fintech/
+- Gabriel Paganin filled in the gaps
+    gpaganin@berkeley.edu
+    www.linkedin.com/in/gabriel-paganin
+
 
 ---
 
